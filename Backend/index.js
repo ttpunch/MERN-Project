@@ -3,6 +3,9 @@ const bodyParser = require("body-parser");
 const machine = require("./models/machine.js");
 const express = require("express");
 const app = express();
+const dotenv=require('dotenv')
+
+dotenv.config();
 
 const formroute=require('./Router/FormRouter')
 const searchroute=require('./Router/SearchRouter')
@@ -25,7 +28,7 @@ app.use('/editdata/',editFormRoute)
 const dbconnect = async () => {
   await mongoose
     .connect(
-      "mongodb+srv://vinod418:vinod12345@cluster0.zyud3js.mongodb.net/machine_breakdown?retryWrites=true&w=majority",
+      process.env.MONGO_URL,
       { useNewUrlParser: true, useUnifiedTopology: true }
     )
     .then(() => {
@@ -37,6 +40,6 @@ const dbconnect = async () => {
 dbconnect();
 
 
-app.listen(5560, () => {
-  console.log("server started at Port 5560");
+app.listen(process.env.PORT, () => {
+  console.log("Server Started");
 });
