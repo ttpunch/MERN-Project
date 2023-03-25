@@ -4,13 +4,19 @@ const machine = require("../models/machine.js");
 
 router.post("/", async (req, res) => {
   //  // Data entry
-  await machine.create({
+
+  const data = new machine({
     machine_no: req.body.mcdata,
     breakdown: req.body.bgdetail,
     bgdate: req.body.bgdate,
-  })
-  res.redirect('./recorddata')
+  });
 
+  try {
+    await data.save();
+    res.status(201).send(data);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
 });
 
 module.exports = router;
