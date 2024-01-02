@@ -11,7 +11,6 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET
   });
 
-console.log(process.env.CLOUDINARY_KEY)
 
 const uploadOnCloudinary = async (localFilePath) => {
   try {
@@ -31,7 +30,7 @@ const uploadOnCloudinary = async (localFilePath) => {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public");
+    cb(null, "./upload");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
